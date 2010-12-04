@@ -1,0 +1,20 @@
+This is meant to transform your browser into a nice, comfty devoloping/designing tool for web projects. It adds a semi-transparent layer on top of the page with the source automagically indented and syntax highlighted (thanks to CodeMirror) and editable. One second (or so) after you stop typing the page reloads with the new code in a silent, agile and unobtrusive manner. It processes php as well as javascript and css along with your everyday html and it lets you save what you have done. Soon it will have the ability to track and open in tabs any code that is being imported into the page like css and js files.
+
+It's good for things like agile testing of snippets of code to managing an existing project from ANY computer with a browser to developing and entire site from scratch.
+
+It is still raw, and unlicensed. I added it here for convenience, as I will be traveling a bit. Don't steal it, please. Soon it will be open for business.
+
+The extension part (for chrome) is just a watered down version of the plugin that doesn't make server calls (obviously) and therefore can't process php or save. It is basically a more basic but comfty (and syntax highlighted) version of the developer tools in chrome, for now.
+
+INSTALATION INSTRUCTIONS
+------------------------
+You can put the plugin to work by putting the plugin folder on your server and adding a link and a script tag to the page you will be editing, as follows:
+
+<head>
+...
+<link id="morph_dir" rel="lib/morpheus" (path to plugin folder) />
+<script type="text/javascript" src="lib/morpheus/initialize.js"></script>
+...
+</head>
+
+Then F2 toggles the editor, F3 changes viewmodes, and F4 saves.
