@@ -1,0 +1,18 @@
+{
+  "name": "Morpheus",
+  "version": "1.0",
+  "description": "Be the Dream.",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "js": ["initialize.js"]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "popup": "options.html"
+  },
+  "permissions": [
+    "tabs", "http://*/*"
+  ]
+}
