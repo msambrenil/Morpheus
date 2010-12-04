@@ -1,6 +1,6 @@
 var options = new Object();
-options.effects = false;
+options.effects = true;
 options.codemirror = true;
-options.tabMode = "spaces";
+options.tabMode = "indent";
 options.fontsize = "20px";
 options.fontweight = "bold";
