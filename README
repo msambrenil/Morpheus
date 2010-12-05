@@ -6,7 +6,7 @@ The extension part (for chrome) is just a watered down version of the plugin tha
 
 INSTALATION INSTRUCTIONS
 ------------------------
-You can put the plugin to work by putting the plugin folder on your server and adding a link and a script tag to the page you will be editing, as follows:
+You can put the plugin to work by putting the folder with the source on your server and adding a link and a script tag to the page you will be editing, as follows:
 
 <head>
 ...
