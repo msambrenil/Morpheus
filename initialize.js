@@ -19,13 +19,21 @@
     Juan Pablo Kaniefsky (jpkaniefsky@gmail.com)
 */
 if (top == self) {
-	var path = document.getElementById("morph_dir").rel + "/";
-	var scripts = new Array("options.js", "jquery.min.js", "jquery.textarea.js", "CodeMirror/cmc.js", "morpheus.js");
-	var html = "<html><head><script type=\"text/javascript\">var path = \"" + path + "\";</script>";
-	for (i = 0; i < scripts.length; i++)
-		html = html + "<script type=\"text/javascript\" src=\"" + path + scripts[i] + "\"></script>";
-	html = html + "</head><body></body></html>";
-	window.onload = function() {
+	var options;
+	var html;
+	chrome.extension.sendRequest({}, function(data) {
+		options = data;
+		var path = chrome.extension.getURL("/");
+		var scripts = new Array("jquery.min.js");
+		if (options.codemirror)
+			scripts.push("CodeMirror/cmc.js");
+		else if (options.tabMode == "spaces")
+			scripts.push("jquery.textarea.js");
+		scripts.push("morpheus.js");
+		html = "<html><head><script type=\"text/javascript\">var path = \"" + path + "\"; var options = " + JSON.stringify(options) + ";</script>";
+		for (i = 0; i < scripts.length; i++)
+			html = html + "<script type=\"text/javascript\" src=\"" + path + scripts[i] + "\"></script>";
+		html = html + "</head><body></body></html>";
 		document.onkeyup = function() {
 			var e = window.event;
 			var wich = e.keyCode != null ? e.keyCode : e.charCode;
@@ -35,5 +43,5 @@ if (top == self) {
 				document.close();
 			}
 		}
-	}
+	});
 }
