@@ -1,4 +1,4 @@
-/*
+<!--
     Copyright (c) 2010 Juan Pablo Kaniefsky
 
     This file is part of Morpheus.
@@ -17,11 +17,26 @@
     along with Morpheus.  If not, see <http://www.gnu.org/licenses/>.
 
     Juan Pablo Kaniefsky (jpkaniefsky@gmail.com)
-*/
-var options = new Object();
-options.effects = true;
-options.codemirror = true;
-options.tabMode = "indent";
-options.opacity = "0.8";
-options.fontsize = "20px";
-options.fontweight = "bold";
+-->
+<html>
+	<head>
+		<script>
+			localStorage["effects"] = true;
+			localStorage["codemirror"] = true;
+			localStorage["tabMode"] = "indent";
+			localStorage["opacity"] = "0.8";
+			localStorage["fontsize"] = "20px";
+			localStorage["fontweight"] = "bold";
+			chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+				sendResponse({
+					effects: localStorage["effects"] == "true" ? true : false,
+					codemirror: localStorage["codemirror"] == "true" ? true : false,
+					tabMode: localStorage["tabMode"],
+					opacity: localStorage["opacity"],
+					fontsize: localStorage["fontsize"],
+					fontweight: localStorage["fontweight"]
+				});
+			});
+		</script>
+	</head>
+</html>

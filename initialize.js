@@ -8,7 +8,7 @@
     the Free Software Foundation, either version 2 of the License, or
     any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    Morpheus is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -18,22 +18,23 @@
 
     Juan Pablo Kaniefsky (jpkaniefsky@gmail.com)
 */
-
-var mode = "plugin";
-var path = document.getElementById("morph_dir").rel + "/";
-var scripts = new Array("options.js", "jquery.min.js", "jquery.textarea.js", "CodeMirror/cmc.js", "morpheus.js");
-var html = "<html id=\"Morpheus\"><head><script type=\"text/javascript\">var path = \"" + path + "\"; var mode = \"" + mode + "\";</script>";
-for (i = 0; i < scripts.length; i++)
-	html = html + "<script type=\"text/javascript\" src=\"" + path + scripts[i] + "\"></script>";
-html = html + "</head><body></body></html>";
-window.onload = function() {
-	document.onkeyup = function() {
-		var e = window.event;
-		var wich = e.keyCode != null ? e.keyCode : e.charCode;
-		if (wich == 113) {
-			document.open();
-			document.write(html);
-			document.close();
+if (top == self) {
+	var mode = "plugin";
+	var path = document.getElementById("morph_dir").rel + "/";
+	var scripts = new Array("options.js", "jquery.min.js", "jquery.textarea.js", "CodeMirror/cmc.js", "morpheus.js");
+	var html = "<html><head><script type=\"text/javascript\">var path = \"" + path + "\"; var mode = \"" + mode + "\";</script>";
+	for (i = 0; i < scripts.length; i++)
+		html = html + "<script type=\"text/javascript\" src=\"" + path + scripts[i] + "\"></script>";
+	html = html + "</head><body></body></html>";
+	window.onload = function() {
+		document.onkeyup = function() {
+			var e = window.event;
+			var wich = e.keyCode != null ? e.keyCode : e.charCode;
+			if (wich == 113) {
+				document.open();
+				document.write(html);
+				document.close();
+			}
 		}
 	}
 }

@@ -8,6 +8,8 @@
       "js": ["initialize.ext.js"]
     }
   ],
+  "background_page": "background.html",
+  "options_page": "options.html",
   "permissions": [
     "tabs", "http://*/*"
   ]

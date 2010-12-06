@@ -8,7 +8,7 @@
     the Free Software Foundation, either version 2 of the License, or
     any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    Morpheus is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -147,9 +147,10 @@ $(document).ready(function() {
 		editor.focus = function() {
 			editor.textarea.focus();
 		}
-		textarea.tabby();
+		if (options.tabMode == "spaces")
+			textarea.tabby();
 	}
-	wrapping.css({"display": "none", "position": "absolute", "top": "0px", "left": "0px", "opacity": 0.8, "height": "100%", "width": "100%", "z-index": "9999", "background-color": "#111"});
+	wrapping.css({"display": "none", "position": "absolute", "top": "0px", "left": "0px", "opacity": options.opacity, "height": "100%", "width": "100%", "z-index": "9999", "background-color": "#111"});
 	setTimeout(function() {
 		if (options.codemirror) {
 			var doc = editor.frame.contentWindow || editor.frame.contentDocument;

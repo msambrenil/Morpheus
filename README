@@ -2,7 +2,7 @@ This is meant to transform your browser into a nice, comfty devoloping/designing
 
 It's good for things like agile testing of snippets of code to managing an existing project from ANY computer with a browser to developing and entire site from scratch.
 
-The extension part (for chrome) is just a watered down version of the plugin that doesn't make server calls (obviously) and therefore can't process php or save. It is basically a more basic but comfty (and syntax highlighted) version of the developer tools in chrome, for now.
+It is both a plugin that works from your server and an extension for chrome/chromium. I will make the proper separation in branches at some point. The extension is just a watered down version of the plugin that doesn't make server calls (obviously) and therefore can't process php or save. It is basically a more basic but comfty (and syntax highlighted) version of the developer tools in chrome, for now.
 
 INSTALATION INSTRUCTIONS
 ------------------------

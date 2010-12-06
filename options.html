@@ -8,7 +8,7 @@
     the Free Software Foundation, either version 2 of the License, or
     any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    Morpheus is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -25,11 +25,15 @@
     <script type="text/javascript" src="jquery.min.js"></script>
     <style>
       body {
-        width:400px;
+        width:450px;
       }
       ul {
         list-style-type:square;
       }
+	input[type="text"] {
+		margin-left:5px;
+		width:40px;
+	}
     </style>
     <script>
       function cmt() {
@@ -43,16 +47,25 @@
             $("#shift").get(0).disabled = false;
         }
       }
-	chrome.extension.onRequest.addListener(function(request, sender, callback) {
-		var data = $("form").serializeArray();
-	      	var options = {
-		        "effects": data[0].value == "on" ? true : false,
-	    		"codemirror": data[1].value == "on" ? true : false,
-	        	"tabMode": data[2].value,
-        		"fontsize": data[3].value,
-	        	"fontweight": data[4].value
-		}	
-		callback(options);
+	
+	$(document).ready(function() {
+		$("input[type='text']").keyup(function() {
+			localStorage[this.name] = this.value;
+		}).each(function() {
+			this.value = localStorage[this.name];
+		});
+		$("input[type!='text']").click(function() {
+			if (this.name == "tabMode") {
+				if (this.checked)
+					localStorage[this.name] = this.value;
+			} else
+				localStorage[this.name] = this.checked;
+		}).each(function() {
+			if (this.name == "tabMode")
+				this.checked = (localStorage[this.name] == this.value ? "checked" : "");
+			else
+				this.checked = (localStorage[this.name] == "true" ? "checked" : "");
+		});
 	});
     </script>
   </head>
@@ -61,40 +74,44 @@
     <ul>
       <li>
         <label for="effects">Effects</label>
-        <input type="checkbox" id="effects" name="effects" checked="checked" />
+        <input type="checkbox" id="effects" name="effects" />
       </li>
       <li>
-        <label for="cm">Code Mirror (syntax higlighting / indenting)</label>
-        <input type="checkbox" id="cm" name="codemirror" checked="checked" onclick="cmt();" />
+        <label for="cm">Code Mirror (syntax highlighting / indenting)</label>
+        <input type="checkbox" id="cm" name="codemirror" onclick="cmt();" />
       </li>
       <li>
         <label for="tm">Tab Mode</label>
         <ul>
           <li>
             <label for="None">None</label>
-            <input type="radio" name="tm" value="default" id="none" />
+            <input type="radio" name="tabMode" value="default" id="none" />
           </li>
           <li>
             <label for="spaces">Spaces</label>
-            <input type="radio" name="tm" value="spaces" id="spaces" />
+            <input type="radio" name="tabMode" value="spaces" id="spaces" />
           </li>
           <li>
             <label for="indent">Indent</label>
-            <input type="radio" id="indent" name="tm" value="indent" checked="checked" />
+            <input type="radio" id="indent" name="tabMode" value="indent" />
           </li>
           <li>
             <label for="shift">Shift (indent / unindent)</label>
-            <input type="radio" name="tm" value="shift" id="shift" />
+            <input type="radio" name="tabMode" value="shift" id="shift" />
           </li>
         </ul>
       </li>
       <li>
+        <label for="op">Editor layer opacity: </label>
+        <input type="text" id="op" name="opacity" />
+      </li>
+      <li>
         <label for="fs">Font size:</label>
-        <input type="text" id="fs" name="fontsize" value="20px" style="margin-left:5px; width:40px"; />
+        <input type="text" id="fs" name="fontsize" />
       </li>
       <li>
         <label for="fw">Font weight:</label>
-        <input type="text" id="fw" name="fontweight" value="bold" style="margin-left:5px; width:40px"; />
+        <input type="text" id="fw" name="fontweight" />
       </li>
     </ul>
     </form>
