@@ -37,7 +37,7 @@ if (!options.effects)
 
 function keyd(e) {
 	var key = parseInt(e.keyCode);
-	if (key == 113 || key == 114 || key == 115) {
+	if (key == 113 || key == 114 || (options.php & key == 115)) {
 		e.keyCode = 0;
 		e.preventDefault();
 		e.stopPropagation();
@@ -62,7 +62,7 @@ function keyu(e) {
 		else
 			cv = 0;
 		wrapping.css(views[cv]);
-	} else if (key == 115 && wrapping.css("display") != "none") {
+	} else if (options.php && key == 115 && wrapping.css("display") != "none") {
 		$.post(path + "controller.php?a=save&url=" + location.href, { "code": editor.getCode() }, function(data) { alert(data); });
 	} else if ((key < 37 || key > 40) && (key < 16 || key > 18) && wrapping.css("display") != "none") {
 		/*var code = editor.getCode();
@@ -70,9 +70,13 @@ function keyu(e) {
 		$("iframe#page").contents().find("body").html(code.split(new RegExp("<body>|</body>"))[1]);*/
 		clearTimeout(to);
 		to = setTimeout(function() {
-			$.post(path + "controller.php?a=evaluate&url=" + location.href, { "code": editor.getCode() }, function(data) {
-				refresh(data);
-			});
+			if (options.php) {
+				$.post(path + "controller.php?a=evaluate&url=" + location.href, { "code": editor.getCode() }, function(data) {
+					refresh(data);
+				});
+			} else {
+				refresh(editor.getCode());
+			}
 		}, 1500);
 	}
 }
@@ -155,9 +159,16 @@ $(document).ready(function() {
 			$(doc).bind("keyup", keyu);
 			$(doc).bind("keydown", keyd);
 		}
-		$.get(path + "controller.php?a=getSource&url=" + location.href, function(data) {
+		if (options.php)
+			var url = path + "controller.php?a=getSource&url=" + location.href;
+		else
+			var url = location.href;
+		$.get(url, function(data) {
 			//data = data.replace(/<(.*?)(morph_dir|initialize.js)([\s\S]*?)\/(.*?)>/ig, "");
-			$.post(path + "controller.php?a=evaluate&url=" + location.href, { "code": data }, function(pdata) { refresh(pdata); });
+			if (options.php)
+				$.post(path + "controller.php?a=evaluate&url=" + location.href, { "code": data }, function(pdata) { refresh(pdata); });
+			else
+				refresh(data);
 			editor.setCode(data);
 			if (options.codemirror)
 				$(editor.frame).contents().find("body").css({"font-size": options.fontsize, "font-weight": options.fontweight, "background-color": "#111"});

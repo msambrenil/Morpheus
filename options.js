@@ -25,3 +25,4 @@ options.tabMode = "indent";
 options.opacity = "0.8";
 options.fontsize = "20px";
 options.fontweight = "bold";
+options.php = true;
