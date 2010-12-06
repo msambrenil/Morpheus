@@ -19,10 +19,9 @@
     Juan Pablo Kaniefsky (jpkaniefsky@gmail.com)
 */
 if (top == self) {
-	var mode = "plugin";
 	var path = document.getElementById("morph_dir").rel + "/";
 	var scripts = new Array("options.js", "jquery.min.js", "jquery.textarea.js", "CodeMirror/cmc.js", "morpheus.js");
-	var html = "<html><head><script type=\"text/javascript\">var path = \"" + path + "\"; var mode = \"" + mode + "\";</script>";
+	var html = "<html><head><script type=\"text/javascript\">var path = \"" + path + "\";</script>";
 	for (i = 0; i < scripts.length; i++)
 		html = html + "<script type=\"text/javascript\" src=\"" + path + scripts[i] + "\"></script>";
 	html = html + "</head><body></body></html>";

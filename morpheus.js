@@ -62,7 +62,7 @@ function keyu(e) {
 		else
 			cv = 0;
 		wrapping.css(views[cv]);
-	} else if (key == 115 && wrapping.css("display") != "none" && mode == "plugin") {
+	} else if (key == 115 && wrapping.css("display") != "none") {
 		$.post(path + "controller.php?a=save&url=" + location.href, { "code": editor.getCode() }, function(data) { alert(data); });
 	} else if ((key < 37 || key > 40) && (key < 16 || key > 18) && wrapping.css("display") != "none") {
 		/*var code = editor.getCode();
@@ -70,13 +70,9 @@ function keyu(e) {
 		$("iframe#page").contents().find("body").html(code.split(new RegExp("<body>|</body>"))[1]);*/
 		clearTimeout(to);
 		to = setTimeout(function() {
-			if (mode == "plugin") {
-				$.post(path + "controller.php?a=evaluate&url=" + location.href, { "code": editor.getCode() }, function(data) {
-					refresh(data);
-				});
-			} else {
-				refresh(editor.getCode());
-			}
+			$.post(path + "controller.php?a=evaluate&url=" + location.href, { "code": editor.getCode() }, function(data) {
+				refresh(data);
+			});
 		}, 1500);
 	}
 }
@@ -159,16 +155,9 @@ $(document).ready(function() {
 			$(doc).bind("keyup", keyu);
 			$(doc).bind("keydown", keyd);
 		}
-		if (mode == "plugin")
-			var url = path + "controller.php?a=getSource&url=" + location.href;
-		else
-			var url = location.href;
-		$.get(url, function(data) {
+		$.get(path + "controller.php?a=getSource&url=" + location.href, function(data) {
 			//data = data.replace(/<(.*?)(morph_dir|initialize.js)([\s\S]*?)\/(.*?)>/ig, "");
-			if (mode == "plugin")
-				$.post(path + "controller.php?a=evaluate&url=" + location.href, { "code": data }, function(pdata) { refresh(pdata); });
-			else
-				refresh(data);
+			$.post(path + "controller.php?a=evaluate&url=" + location.href, { "code": data }, function(pdata) { refresh(pdata); });
 			editor.setCode(data);
 			if (options.codemirror)
 				$(editor.frame).contents().find("body").css({"font-size": options.fontsize, "font-weight": options.fontweight, "background-color": "#111"});
